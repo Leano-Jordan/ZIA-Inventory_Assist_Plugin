@@ -9,7 +9,7 @@ import {
 import { authenticate } from "../shopify.server";
 import prisma from "../db.server";
 import { loadInventoryFoundation } from "../lib/inventory.server";
-import "./zia.css";
+import "../styles/zia.css";
 
 function optionalInt(value: FormDataEntryValue | null) {
   if (value === null || value === "") return null;
