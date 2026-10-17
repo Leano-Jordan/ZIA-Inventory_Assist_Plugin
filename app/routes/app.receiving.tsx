@@ -76,7 +76,7 @@ export async function action({ request }: ActionFunctionArgs) {
           change: receivedNow,
           reason: "PURCHASE_RECEIPT_RECORDED",
           source: "PURCHASE_ORDER",
-          actor: session.email || session.shop,
+          actor: session.shop,
           syncStatus: "PENDING",
           syncError: null,
           metadata: JSON.stringify({
