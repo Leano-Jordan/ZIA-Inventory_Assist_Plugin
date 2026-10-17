@@ -73,9 +73,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const attention = items
     .filter((item) => item.status === "OUT" || item.status === "REORDER")
     .sort((a, b) => {
-      const rank = { OUT: 0, REORDER: 1 };
+      const rank: Record<"OUT" | "REORDER", number> = { OUT: 0, REORDER: 1 };
       return (
-        rank[a.status] - rank[b.status] ||
+        rank[a.status as "OUT" | "REORDER"] - rank[b.status as "OUT" | "REORDER"] ||
         a.available - b.available ||
         a.productTitle.localeCompare(b.productTitle)
       );
