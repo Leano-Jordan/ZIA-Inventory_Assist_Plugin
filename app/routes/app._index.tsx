@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "react-router";
 
 import { authenticate } from "../shopify.server";
 import { loadInventoryFoundation, summariseInventory } from "../lib/inventory.server";
-import "./zia.css";
+import "../styles/zia.css";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { admin } = await authenticate.admin(request);
