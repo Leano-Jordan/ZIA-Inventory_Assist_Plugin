@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router";
 
 import { authenticate } from "../shopify.server";
 import prisma from "../db.server";
-import "./zia.css";
+import "../styles/zia.css";
 
 type PendingReceipt = {
   id: string;
