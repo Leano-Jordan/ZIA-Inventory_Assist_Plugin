@@ -62,7 +62,7 @@ function parseDateOnly(value: string) {
 
 async function createPurchaseOrderWithRetry(
   shop: string,
-  data: Omit<Prisma.PurchaseOrderCreateArgs["data"], "shop" | "number">,
+  data: Omit<Prisma.PurchaseOrderUncheckedCreateInput, "shop" | "number">,
 ) {
   for (let attempt = 0; attempt < 3; attempt += 1) {
     const existingNumbers = await prisma.purchaseOrder.findMany({
