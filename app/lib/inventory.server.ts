@@ -212,7 +212,7 @@ async function loadAllVariants(admin: AdminClient): Promise<ProductVariantNode[]
   let after: string | null = null;
 
   do {
-    const data = await graphqlRequest<VariantsPage>(
+    const data: VariantsPage = await graphqlRequest<VariantsPage>(
       admin,
       PRODUCT_VARIANTS_QUERY,
       { first: 250, after },
@@ -231,7 +231,7 @@ async function loadAllLocations(admin: AdminClient) {
   let after: string | null = null;
 
   do {
-    const data = await graphqlRequest<LocationsPage>(
+    const data: LocationsPage = await graphqlRequest<LocationsPage>(
       admin,
       LOCATIONS_QUERY,
       { first: 250, after },
@@ -271,7 +271,7 @@ export async function loadInventoryHealth(
     let after: string | null = null;
 
     do {
-      const data = await graphqlRequest<InventoryHealthPage>(
+      const data: InventoryHealthPage = await graphqlRequest<InventoryHealthPage>(
         admin,
         INVENTORY_HEALTH_BY_LOCATION_QUERY,
         {
@@ -287,8 +287,8 @@ export async function loadInventoryHealth(
           continue;
         }
 
-        const quantities = new Map(
-          variant.inventoryItem.inventoryLevel.quantities.map((quantity) => [
+        const quantities = new Map<string, number>(
+          variant.inventoryItem.inventoryLevel.quantities.map((quantity: { name: string; quantity: number }) => [
             quantity.name,
             quantity.quantity,
           ]),
