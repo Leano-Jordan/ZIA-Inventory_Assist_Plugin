@@ -10,7 +10,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   try {
     const data = await loadInventoryFoundation(admin);
-    return { status: "ok" as const, summary: summariseInventory(data) };
+    return { status: "ok" as const, summary: summariseInventory(data.variants, data.locations) };
   } catch (error) {
     console.error("ZIA inventory foundation load failed", error);
     return {
