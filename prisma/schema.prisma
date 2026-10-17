@@ -136,6 +136,8 @@ model InventoryAudit {
   change           Int?
   reason           String
   source           String
+  syncStatus       String?
+  syncError        String?
   actor            String?
   metadata         String?
   createdAt        DateTime @default(now())
