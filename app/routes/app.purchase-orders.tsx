@@ -5,7 +5,7 @@ import { Form, redirect, useActionData, useLoaderData } from "react-router";
 import { authenticate } from "../shopify.server";
 import prisma from "../db.server";
 import { loadInventoryFoundation } from "../lib/inventory.server";
-import "./zia.css";
+import "../styles/zia.css";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { admin, session } = await authenticate.admin(request);
