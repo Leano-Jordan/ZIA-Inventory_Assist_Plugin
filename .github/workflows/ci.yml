@@ -2,7 +2,7 @@ name: App verification
 
 on:
   push:
-    branches: [main]
+    branches: [main, "hardening/**"]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -11,6 +11,22 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: zia
+          POSTGRES_PASSWORD: zia_test_password
+          POSTGRES_DB: zia_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U zia -d zia_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://zia:zia_test_password@localhost:5432/zia_test?schema=public
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -23,8 +39,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Validate Prisma schema
+        run: npx prisma validate
+
       - name: Generate Prisma client
         run: npx prisma generate
+
+      - name: Apply PostgreSQL migrations
+        run: npx prisma migrate deploy
 
       - name: Type-check
         run: npm run typecheck
